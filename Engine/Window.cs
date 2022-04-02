@@ -73,8 +73,8 @@ namespace Initial_project.Engine
 
             shader.use();
             GL.BindVertexArray(VertexArrayObject);
-            //Dibuja mi casa
-            GL.DrawElements(PrimitiveType.Lines, triangle.indexCount(), DrawElementsType.UnsignedInt, 0);
+            //Dibuja
+            GL.DrawElements(PrimitiveType.Triangles, triangle.indexCount(), DrawElementsType.UnsignedInt, 0);
 
             Context.SwapBuffers();
             base.OnRenderFrame(e);
