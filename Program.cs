@@ -2,6 +2,8 @@
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
+using System;
+using Initial_project.Utilities;
 
 namespace Initial_project
 {
@@ -13,9 +15,11 @@ namespace Initial_project
             {
                 Size = new Vector2i(800, 600),
                 Title = "LearnOpenTK - Creating a Window",
-                // This is needed to run on macos
+                // Necesario para correr en MacOS
                 Flags = ContextFlags.ForwardCompatible,
             };
+
+
 
             using (var window = new Window(GameWindowSettings.Default, nativeWindowSettings))
             {

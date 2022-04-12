@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 
 namespace Initial_project.Engine.Shaders
 {
@@ -8,11 +9,25 @@ namespace Initial_project.Engine.Shaders
     {
         //atributos
 
-        int id;
-        private bool disposedValue = false;
+        private int Id;
+        private bool DisposedValue = false;
 
         //constructor
+
+        public ShaderEngine()
+        {
+            string vertexPath = "Resources/Shaders/VertexShader.glsl";
+            string fragmentPath = "Resources/Shaders/FragmentShader.glsl";
+
+            Init(vertexPath, fragmentPath);
+        }
         public ShaderEngine(string vertexPath, string fragmentPath)
+        {
+            Init(vertexPath, fragmentPath);
+        }
+
+
+        private void Init(string vertexPath, string fragmentPath)
         {
             int vertexShader, fragmentShader; //el id de cada shader
 
@@ -30,24 +45,24 @@ namespace Initial_project.Engine.Shaders
             }
 
             //compilamos cada shader
-            vertexShader = compileShader(ShaderType.VertexShader, vertexShaderSource);
-            fragmentShader = compileShader(ShaderType.FragmentShader, fragmentShaderSource);
+            vertexShader = CompileShader(ShaderType.VertexShader, vertexShaderSource);
+            fragmentShader = CompileShader(ShaderType.FragmentShader, fragmentShaderSource);
 
             //creamos el programa y unimos los dos shaders
-            id = GL.CreateProgram();
+            Id = GL.CreateProgram();
 
-            GL.AttachShader(id, vertexShader);
-            GL.AttachShader(id, fragmentShader);
-            GL.LinkProgram(id);
+            GL.AttachShader(Id, vertexShader);
+            GL.AttachShader(Id, fragmentShader);
+            GL.LinkProgram(Id);
 
             //limpiamos
-            GL.DetachShader(id, vertexShader);
-            GL.DetachShader(id, fragmentShader);
+            GL.DetachShader(Id, vertexShader);
+            GL.DetachShader(Id, fragmentShader);
             GL.DeleteShader(fragmentShader);
             GL.DeleteShader(vertexShader);
         }
 
-        private int compileShader(ShaderType type, string source)
+        private int CompileShader(ShaderType type, string source)
         {
             int shader = GL.CreateShader(type);  //generamos 
             GL.ShaderSource(shader, source); //unimos el shader generado al codigo fuente
@@ -62,25 +77,46 @@ namespace Initial_project.Engine.Shaders
         }
 
 
-        public void use()
+
+        private int GetUniformLocation(string name)
         {
-            GL.UseProgram(id);
+            int location = GL.GetUniformLocation(Id, name);
+            if (location == -1)
+                System.Console.WriteLine("Warning: uniform " + name + " - no existe!");
+            return location;
+        }
+
+        public void SetUniformMatrix4(string name, Matrix4 matrix)
+        {
+            GL.UniformMatrix4(GetUniformLocation(name), false, ref matrix);
+        }
+
+
+        public void SetUniformColor4(string name, Color4 color)
+        {
+            GL.Uniform4(GetUniformLocation(name), color);
+        }
+
+
+        public void Use()
+        {
+            GL.UseProgram(Id);
         }
 
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!DisposedValue)
             {
-                GL.DeleteProgram(id);
+                GL.DeleteProgram(Id);
 
-                disposedValue = true;
+                DisposedValue = true;
             }
         }
 
         ~ShaderEngine()
         {
-            GL.DeleteProgram(id);
+            GL.DeleteProgram(Id);
         }
 
 
