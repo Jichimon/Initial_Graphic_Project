@@ -22,14 +22,30 @@ namespace Initial_project.Engine
         ShaderEngine Shader;
 
 
+        protected Matrix4 ModelMatrix;
+        protected Matrix4 MVPMatrix;
+        protected Matrix4 ViewProjectionMatrix;
+
+        protected Matrix4 Rotations;
+        protected Matrix4 Translations;
+        protected Matrix4 Scales;
+
+
         public DrawableObject() : base()
         {
-
+            ModelMatrix = Matrix4.Identity;
+            ViewProjectionMatrix = Matrix4.Identity;
+            MVPMatrix = ModelMatrix;
+            Translations = Matrix4.Identity;
         }
 
 
         public DrawableObject(Vector3 relativePosition) : base(relativePosition)
         {
+            ModelMatrix = Matrix4.Identity;
+            MVPMatrix = ModelMatrix;
+            ViewProjectionMatrix = Matrix4.Identity;
+            Translations = Matrix4.Identity;
         }
 
         protected void Init(float[] vertexArray, uint[] indices, Color4 color)
@@ -46,11 +62,11 @@ namespace Initial_project.Engine
 
             //enlazamos el VBO con un buffer de openGL y lo inicializamos
             GL.BindBuffer(BufferTarget.ArrayBuffer, VertexBufferObject);
-            GL.BufferData(BufferTarget.ArrayBuffer, GetLength(Vertices) * sizeof(float), Vertices, BufferUsageHint.DynamicDraw);
+            GL.BufferData(BufferTarget.ArrayBuffer, GetLength(Vertices) * sizeof(float), Vertices, BufferUsageHint.StaticDraw);
 
             //enlazamos el IBO con un buffer de openGL y lo inicializamos
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, IndexBufferObject);
-            GL.BufferData(BufferTarget.ElementArrayBuffer, Indices.Length * sizeof(uint), Indices, BufferUsageHint.DynamicDraw);
+            GL.BufferData(BufferTarget.ElementArrayBuffer, Indices.Length * sizeof(uint), Indices, BufferUsageHint.StaticDraw);
 
             //configuramos los atributos del vertexbuffer y lo habilitamos (el primer 0 indica el location en el vertexShader)
             GL.EnableVertexAttribArray(0);
@@ -73,13 +89,19 @@ namespace Initial_project.Engine
 
         public void SetViewProjectionMatrix(Matrix4 viewProjectionMatrix)
         {
-            MVPMatrix = ModelMatrix * viewProjectionMatrix;
+            ViewProjectionMatrix = viewProjectionMatrix;
+        }
+
+        protected void CalculateMvpMatrix()
+        {
+            MVPMatrix = ModelMatrix * ViewProjectionMatrix;
         }
 
 
 
         public void Draw()
         {
+            CalculateMvpMatrix();
             //habilitamos todo
             Shader.Use();
             BindMatrix();
@@ -128,5 +150,40 @@ namespace Initial_project.Engine
             return array.Length * 3;
         }
 
+
+        //-----------------------------------------------------------------------
+        //------------------TRANSFORMATIONS--------------------------------------
+        //-----------------------------------------------------------------------
+
+        public void Move(Vector3 direction)
+        {
+            Position = Position + direction;
+            Translations = Matrix4.CreateTranslation(direction);
+            ModelMatrix = ModelMatrix * Translations;
+        }
+
+        public void Scale(Vector3 factor)
+        {
+            Scales = Matrix4.CreateScale(factor);
+            ModelMatrix = ModelMatrix * Scales;
+        }
+
+        public void RotateX(float angle)
+        {
+            Rotations = Matrix4.CreateRotationX(angle);
+            ModelMatrix = ModelMatrix * Rotations;
+        }
+
+        public void RotateY(float angle)
+        {
+            Rotations = Matrix4.CreateRotationY(angle);
+            ModelMatrix = ModelMatrix * Rotations;
+        }
+
+        public void RotateZ(float angle)
+        {
+            Rotations = Matrix4.CreateRotationZ(angle);
+            ModelMatrix = ModelMatrix * Rotations;
+        }
     }
 }

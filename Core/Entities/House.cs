@@ -25,20 +25,27 @@ namespace Initial_project.Core.Entities
         //constructor
         public House() : base()
         {
-         
-            Wall = new Wall(WallInitialPosition);
-            Drawables.Add(Wall);
-
-            Roof = new Roof(RoofInitialPosition);
-            Drawables.Add(Roof);
-
-            Door = new Door(DoorInitialPosition);
-            Drawables.Add(Door);
+            Init();
         }
 
         public House(Vector3 relativePosition) : base(relativePosition)
         {
+            Init();
         }
+
+
+        private void Init()
+        {
+            Wall = new Wall(WallInitialPosition + Origin);
+            Drawables.Add(Wall);
+
+            Roof = new Roof(RoofInitialPosition + Origin);
+            Drawables.Add(Roof);
+
+            Door = new Door(DoorInitialPosition + Origin);
+            Drawables.Add(Door);
+        }
+
 
         public void Draw()
         {
@@ -61,6 +68,53 @@ namespace Initial_project.Core.Entities
             foreach (IDrawable item in Drawables)
             {
                 item.Destroy();
+            }
+        }
+
+
+        //-----------------------------------------------------------------------
+        //------------------TRANSFORMATIONS--------------------------------------
+        //-----------------------------------------------------------------------
+
+
+
+        public void Move(Vector3 direction)
+        {
+            foreach (IDrawable item in Drawables)
+            {
+                item.Move(direction);
+            }
+        }
+
+        public void Scale(Vector3 factor)
+        {
+            foreach (IDrawable item in Drawables)
+            {
+                item.Scale(factor);
+            }
+        }
+
+        public void RotateX(float angle)
+        {
+            foreach (IDrawable item in Drawables)
+            {
+                item.RotateX(angle);
+            }
+        }
+
+        public void RotateY(float angle)
+        {
+            foreach (IDrawable item in Drawables)
+            {
+                item.RotateY(angle);
+            }
+        }
+
+        public void RotateZ(float angle)
+        {
+            foreach (IDrawable item in Drawables)
+            {
+                item.RotateZ(angle);
             }
         }
     }

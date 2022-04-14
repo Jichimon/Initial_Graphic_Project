@@ -10,19 +10,13 @@ namespace Initial_project.Engine
         protected Vector3 Position; //guarda la posicion del centro de gravedad actual del objeto
         protected Vector3 Origin;   //guarda la posicion del centro de gravedad inicial del objeto
 
-        protected Matrix4 ModelMatrix;
-        protected Matrix4 MVPMatrix;
-
 
         /// <summary>
         /// Constructor básico que crea un objeto en el centro de la ventana
         /// </summary>
         public Object() 
         {
-            Origin = Vector3.Zero;
-            Position = Vector3.Zero;
-            ModelMatrix = Matrix4.Identity;
-            MVPMatrix = ModelMatrix;
+            SetInitialPosition(Vector3.Zero);
         }
 
         /// <summary>
@@ -35,12 +29,10 @@ namespace Initial_project.Engine
         }
 
 
-        protected void SetInitialPosition(Vector3 initialPosition)
+        private void SetInitialPosition(Vector3 initialPosition)
         {
             Origin = initialPosition;
             Position = Origin;
-            ModelMatrix = Matrix4.Identity;
-            MVPMatrix = ModelMatrix;
         }
 
     }
