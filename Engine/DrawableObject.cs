@@ -26,9 +26,6 @@ namespace Initial_project.Engine
         protected Matrix4 MVPMatrix;
         protected Matrix4 ViewProjectionMatrix;
 
-        protected Matrix4 Rotations;
-        protected Matrix4 Translations;
-        protected Matrix4 Scales;
 
 
         public DrawableObject() : base()
@@ -36,7 +33,6 @@ namespace Initial_project.Engine
             ModelMatrix = Matrix4.Identity;
             ViewProjectionMatrix = Matrix4.Identity;
             MVPMatrix = ModelMatrix;
-            Translations = Matrix4.Identity;
         }
 
 
@@ -45,7 +41,6 @@ namespace Initial_project.Engine
             ModelMatrix = Matrix4.Identity;
             MVPMatrix = ModelMatrix;
             ViewProjectionMatrix = Matrix4.Identity;
-            Translations = Matrix4.Identity;
         }
 
         protected void Init(float[] vertexArray, uint[] indices, Color4 color)
@@ -90,6 +85,7 @@ namespace Initial_project.Engine
         public void SetViewProjectionMatrix(Matrix4 viewProjectionMatrix)
         {
             ViewProjectionMatrix = viewProjectionMatrix;
+            CalculateMvpMatrix();
         }
 
         protected void CalculateMvpMatrix()
@@ -101,7 +97,6 @@ namespace Initial_project.Engine
 
         public void Draw()
         {
-            CalculateMvpMatrix();
             //habilitamos todo
             Shader.Use();
             BindMatrix();
@@ -151,39 +146,6 @@ namespace Initial_project.Engine
         }
 
 
-        //-----------------------------------------------------------------------
-        //------------------TRANSFORMATIONS--------------------------------------
-        //-----------------------------------------------------------------------
-
-        public void Move(Vector3 direction)
-        {
-            Position = Position + direction;
-            Translations = Matrix4.CreateTranslation(direction);
-            ModelMatrix = ModelMatrix * Translations;
-        }
-
-        public void Scale(Vector3 factor)
-        {
-            Scales = Matrix4.CreateScale(factor);
-            ModelMatrix = ModelMatrix * Scales;
-        }
-
-        public void RotateX(float angle)
-        {
-            Rotations = Matrix4.CreateRotationX(angle);
-            ModelMatrix = ModelMatrix * Rotations;
-        }
-
-        public void RotateY(float angle)
-        {
-            Rotations = Matrix4.CreateRotationY(angle);
-            ModelMatrix = ModelMatrix * Rotations;
-        }
-
-        public void RotateZ(float angle)
-        {
-            Rotations = Matrix4.CreateRotationZ(angle);
-            ModelMatrix = ModelMatrix * Rotations;
-        }
+        
     }
 }
