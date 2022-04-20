@@ -2,37 +2,64 @@
 using OpenTK.Windowing.Common;
 using OpenTK.Mathematics;
 using OpenTK.Core;
+using System.Collections.Generic;
 
 namespace Initial_project.Engine
 {
-    abstract class Object
+    abstract class Object : Entity, IDrawable
     {
-        protected Vector3 Position; //guarda la posicion del centro de gravedad actual del objeto
-        protected Vector3 Origin;   //guarda la posicion del centro de gravedad inicial del objeto
 
 
-        /// <summary>
-        /// Constructor básico que crea un objeto en el centro de la ventana
-        /// </summary>
-        public Object() 
+        //properties
+        private List<Part> ListOfParts;
+
+
+        public Object() : base()
         {
-            SetInitialPosition(Vector3.Zero);
+            ListOfParts = new();
         }
 
-        /// <summary>
-        /// Crea un objeto cuyo origen, está en base al origen de otro objeto.
-        /// </summary>
-        /// <param name="relativePosition"> origen del otro objeto </param>
-        public Object(Vector3 relativePosition)
+        public Object(Vector3 relativePosition) : base(relativePosition)
         {
-            SetInitialPosition(relativePosition);
+            ListOfParts = new();
         }
 
 
-        private void SetInitialPosition(Vector3 initialPosition)
+
+
+        protected void AddPart(Part part)
         {
-            Origin = initialPosition;
-            Position = Origin;
+            ListOfParts.Add(part);
+        }
+
+        protected Part Getpart(int id)
+        {
+            return ListOfParts.Find((p) => p.Id == id);
+        }
+
+
+        public void Draw()
+        {
+            foreach (IDrawable item in ListOfParts)
+            {
+                item.Draw();
+            }
+        }
+
+        public void SetViewProjectionMatrix(Matrix4 ViewProjectionMatrix)
+        {
+            foreach (Part item in ListOfParts)
+            {
+                item.SetViewProjectionMatrix(ViewProjectionMatrix);
+            }
+        }
+
+        public void Destroy()
+        {
+            foreach (IDrawable item in ListOfParts)
+            {
+                item.Destroy();
+            }
         }
 
     }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Initial_project.Core.Entities
 {
-    class Roof : DrawableObject
+    class Roof : Part
     {
 
         //atributos
@@ -48,17 +48,17 @@ namespace Initial_project.Core.Entities
 
 
         //constructor
-        public Roof() : base()
+        public Roof(int id) : base(id)
         {
             Init(VertexFloatArray, IndexFloatArray, ColorShape);
         }
 
-        public Roof(Vector3 relativePosition) : base(relativePosition)
+        public Roof(int id, Vector3 relativePosition) : base(id, relativePosition)
         {
             Init(VertexFloatArray, IndexFloatArray, ColorShape);
         }
 
-        public Roof(Vector3 relativePosition, Color4 color) : base(relativePosition)
+        public Roof(int id, Vector3 relativePosition, Color4 color) : base(id, relativePosition)
         {
             ColorShape = color;
             Init(VertexFloatArray, IndexFloatArray, ColorShape);

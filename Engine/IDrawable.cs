@@ -6,7 +6,6 @@ namespace Initial_project.Engine
     {
         public void Draw();
         public void Destroy();
-        public void SetViewProjectionMatrix(Matrix4 viewProjectionMatrix);
 
     }
 }

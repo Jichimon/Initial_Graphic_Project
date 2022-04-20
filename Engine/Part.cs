@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Initial_project.Engine.Shaders;
+﻿using Initial_project.Engine.Shaders;
 using Initial_project.Utilities;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
+using System;
+using System.Collections.Generic;
 
 namespace Initial_project.Engine
 {
-    abstract class DrawableObject : Object, IDrawable
+    class Part : Entity, IDrawable
     {
+
+        public readonly int Id;
+
         Vector3[] Vertices = Array.Empty<Vector3>();
         uint[] Indices;
         Color4 Color;
@@ -28,16 +28,18 @@ namespace Initial_project.Engine
 
 
 
-        public DrawableObject() : base()
+        public Part(int id) : base()
         {
+            Id = id;
             ModelMatrix = Matrix4.Identity;
             ViewProjectionMatrix = Matrix4.Identity;
             MVPMatrix = ModelMatrix;
         }
 
 
-        public DrawableObject(Vector3 relativePosition) : base(relativePosition)
+        public Part(int id, Vector3 relativePosition) : base(relativePosition)
         {
+            Id = id;
             ModelMatrix = Matrix4.Identity;
             MVPMatrix = ModelMatrix;
             ViewProjectionMatrix = Matrix4.Identity;
@@ -145,7 +147,5 @@ namespace Initial_project.Engine
             return array.Length * 3;
         }
 
-
-        
     }
 }

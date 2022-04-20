@@ -9,12 +9,13 @@ namespace Initial_project.Core.Entities
 {
     class House : Object, IDrawable
     {
-
-        //atributos
-        List<IDrawable> Drawables = new List<IDrawable>();
         Door Door;
         Roof Roof;
         Wall Wall;
+
+        int IdWall = 1;
+        int IdRoof = 2;
+        int IdDoor = 3;
 
         Vector3 DoorInitialPosition = new Vector3(-0.1f, -0.4f,  0.51f);
         Vector3 RoofInitialPosition = new Vector3( 0.0f,  0.45f,  0.0f);
@@ -36,40 +37,16 @@ namespace Initial_project.Core.Entities
 
         private void Init()
         {
-            Wall = new Wall(WallInitialPosition + Origin);
-            Drawables.Add(Wall);
+            Wall = new Wall(IdWall, WallInitialPosition + Origin);
+            AddPart(Wall);
 
-            Roof = new Roof(RoofInitialPosition + Origin);
-            Drawables.Add(Roof);
+            Roof = new Roof(IdRoof, RoofInitialPosition + Origin);
+            AddPart(Roof);
 
-            Door = new Door(DoorInitialPosition + Origin);
-            Drawables.Add(Door);
+            Door = new Door(IdDoor, DoorInitialPosition + Origin);
+            AddPart(Door);
         }
 
-
-        public void Draw()
-        {
-            foreach (IDrawable item in Drawables)
-            {
-                item.Draw();
-            }
-        }
-
-        public void SetViewProjectionMatrix(Matrix4 ViewProjectionMatrix)
-        {
-            foreach (IDrawable item in Drawables)
-            {
-                item.SetViewProjectionMatrix(ViewProjectionMatrix);
-            }
-        }
-
-        public void Destroy()
-        {
-            foreach (IDrawable item in Drawables)
-            {
-                item.Destroy();
-            }
-        }
 
     }
 }

@@ -1,14 +1,10 @@
 ﻿using Initial_project.Engine;
 using OpenTK.Mathematics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Initial_project.Core.Entities
 {
-    class Door : DrawableObject
+    class Door : Part
     {
 
         //atributos
@@ -35,18 +31,18 @@ namespace Initial_project.Core.Entities
 
 
         //constructor
-        public Door() : base()
+        public Door(int id) : base(id)
         {
             base.Init(VertexFloatArray, IndexFloatArray, ColorShape);
         }
 
-        public Door(Vector3 relativePosition) : base(relativePosition)
+        public Door(int id, Vector3 relativePosition) : base(id, relativePosition)
         {
             base.Init(VertexFloatArray, IndexFloatArray, ColorShape);
         }
 
-        public Door(Vector3 relativePosition, Color4 color) : base(relativePosition)
-        {
+        public Door(int id, Vector3 relativePosition, Color4 color) : base(id, relativePosition)
+        { 
             ColorShape = color;
             base.Init(VertexFloatArray, IndexFloatArray, ColorShape);
         }
