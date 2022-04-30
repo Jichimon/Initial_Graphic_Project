@@ -13,9 +13,9 @@ namespace Initial_project.Core.Entities
         Roof Roof;
         Wall Wall;
 
-        int IdWall = 1;
-        int IdRoof = 2;
-        int IdDoor = 3;
+        string KeyWall = "wall";
+        string KeyRoof = "roof";
+        string KeyDoor = "door";
 
         Vector3 DoorInitialPosition = new Vector3(-0.1f, -0.4f,  0.51f);
         Vector3 RoofInitialPosition = new Vector3( 0.0f,  0.45f,  0.0f);
@@ -37,14 +37,14 @@ namespace Initial_project.Core.Entities
 
         private void Init()
         {
-            Wall = new Wall(IdWall, WallInitialPosition + Origin);
-            AddPart(Wall);
+            Wall = new Wall(WallInitialPosition + Origin);
+            AddPart(KeyWall, Wall);
 
-            Roof = new Roof(IdRoof, RoofInitialPosition + Origin);
-            AddPart(Roof);
+            Roof = new Roof(RoofInitialPosition + Origin);
+            AddPart(KeyRoof, Roof);
 
-            Door = new Door(IdDoor, DoorInitialPosition + Origin);
-            AddPart(Door);
+            Door = new Door(DoorInitialPosition + Origin);
+            AddPart(KeyDoor, Door);
         }
 
 

@@ -11,36 +11,40 @@ namespace Initial_project.Engine
 
 
         //properties
-        private List<Part> ListOfParts;
+        protected Dictionary<string, Part> Parts;
 
 
         public Object() : base()
         {
-            ListOfParts = new();
+            Parts = new();
         }
 
         public Object(Vector3 relativePosition) : base(relativePosition)
         {
-            ListOfParts = new();
+            Parts = new();
         }
 
 
 
 
-        protected void AddPart(Part part)
+        protected void AddPart(string name, Part part)
         {
-            ListOfParts.Add(part);
+            Parts.Add(name, part);
         }
 
-        protected Part Getpart(int id)
+        protected Part Getpart(string name)
         {
-            return ListOfParts.Find((p) => p.Id == id);
+            if (!Parts.ContainsKey(name))
+            {
+                return null;
+            }
+            return Parts[name];
         }
 
 
         public void Draw()
         {
-            foreach (IDrawable item in ListOfParts)
+            foreach (IDrawable item in Parts.Values)
             {
                 item.Draw();
             }
@@ -48,7 +52,7 @@ namespace Initial_project.Engine
 
         public void SetViewProjectionMatrix(Matrix4 ViewProjectionMatrix)
         {
-            foreach (Part item in ListOfParts)
+            foreach (Part item in Parts.Values)
             {
                 item.SetViewProjectionMatrix(ViewProjectionMatrix);
             }
@@ -56,7 +60,7 @@ namespace Initial_project.Engine
 
         public void Destroy()
         {
-            foreach (IDrawable item in ListOfParts)
+            foreach (IDrawable item in Parts.Values)
             {
                 item.Destroy();
             }

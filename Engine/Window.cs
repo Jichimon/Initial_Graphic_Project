@@ -1,4 +1,5 @@
 ﻿using System;
+using Initial_project.Core;
 using Initial_project.Core.Entities;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
@@ -14,6 +15,7 @@ namespace Initial_project.Engine
         //atributos
         House Shape;
         House Shape2;
+        Scene Scene1;
 
 
         //constructor
@@ -31,6 +33,9 @@ namespace Initial_project.Engine
 
             Shape = new House(initialPosition1);
             Shape2 = new House(initialPosition2);
+            Scene1 = new();
+            Scene1.AddObject("casa1", Shape);
+            Scene1.AddObject("casa2", Shape2);
         }
 
 
@@ -49,8 +54,7 @@ namespace Initial_project.Engine
 
             Matrix4 view = Matrix4.LookAt(cameraPosition, target, up);
 
-            Shape.SetViewProjectionMatrix(view * projection);
-            Shape2.SetViewProjectionMatrix(view * projection);
+            Scene1.SetViewProjectionMatrix(view * projection);
 
 
             base.OnLoad();
@@ -62,8 +66,7 @@ namespace Initial_project.Engine
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.Enable(EnableCap.DepthTest);
 
-            Shape.Draw();
-            Shape2.Draw();
+            Scene1.Draw();
 
             Context.SwapBuffers();
             base.OnRenderFrame(e);
@@ -81,8 +84,7 @@ namespace Initial_project.Engine
         //para cerrar el programa
         protected override void OnUnload()
         {
-            Shape.Destroy();
-            Shape2.Destroy();
+            Scene1.Destroy();
 
 
             base.OnUnload();

@@ -48,17 +48,17 @@ namespace Initial_project.Core.Entities
 
 
         //constructor
-        public Roof(int id) : base(id)
+        public Roof() : base()
         {
             Init(VertexFloatArray, IndexFloatArray, ColorShape);
         }
 
-        public Roof(int id, Vector3 relativePosition) : base(id, relativePosition)
+        public Roof(Vector3 relativePosition) : base(relativePosition)
         {
             Init(VertexFloatArray, IndexFloatArray, ColorShape);
         }
 
-        public Roof(int id, Vector3 relativePosition, Color4 color) : base(id, relativePosition)
+        public Roof(Vector3 relativePosition, Color4 color) : base(relativePosition)
         {
             ColorShape = color;
             Init(VertexFloatArray, IndexFloatArray, ColorShape);

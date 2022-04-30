@@ -10,8 +10,6 @@ namespace Initial_project.Engine
     class Part : Entity, IDrawable
     {
 
-        public readonly int Id;
-
         Vector3[] Vertices = Array.Empty<Vector3>();
         uint[] Indices;
         Color4 Color;
@@ -28,18 +26,16 @@ namespace Initial_project.Engine
 
 
 
-        public Part(int id) : base()
+        public Part() : base()
         {
-            Id = id;
             ModelMatrix = Matrix4.Identity;
             ViewProjectionMatrix = Matrix4.Identity;
             MVPMatrix = ModelMatrix;
         }
 
 
-        public Part(int id, Vector3 relativePosition) : base(relativePosition)
+        public Part(Vector3 relativePosition) : base(relativePosition)
         {
-            Id = id;
             ModelMatrix = Matrix4.Identity;
             MVPMatrix = ModelMatrix;
             ViewProjectionMatrix = Matrix4.Identity;

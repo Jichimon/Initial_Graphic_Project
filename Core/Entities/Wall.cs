@@ -55,17 +55,17 @@ namespace Initial_project.Core.Entities
 
 
         //constructor
-        public Wall(int id) : base(id)
+        public Wall() : base()
         {
             Init(VertexFloatArray, IndexFloatArray, ColorShape);
         }
 
-        public Wall(int id, Vector3 relativePosition) : base(id, relativePosition)
+        public Wall(Vector3 relativePosition) : base(relativePosition)
         {
             Init(VertexFloatArray, IndexFloatArray, ColorShape);
         }
 
-        public Wall(int id, Vector3 relativePosition, Color4 color) : base(id, relativePosition)
+        public Wall(Vector3 relativePosition, Color4 color) : base(relativePosition)
         {
             ColorShape = color;
             Init(VertexFloatArray, IndexFloatArray, ColorShape);

@@ -31,17 +31,17 @@ namespace Initial_project.Core.Entities
 
 
         //constructor
-        public Door(int id) : base(id)
+        public Door() : base()
         {
             base.Init(VertexFloatArray, IndexFloatArray, ColorShape);
         }
 
-        public Door(int id, Vector3 relativePosition) : base(id, relativePosition)
+        public Door(Vector3 relativePosition) : base(relativePosition)
         {
             base.Init(VertexFloatArray, IndexFloatArray, ColorShape);
         }
 
-        public Door(int id, Vector3 relativePosition, Color4 color) : base(id, relativePosition)
+        public Door(Vector3 relativePosition, Color4 color) : base(relativePosition)
         { 
             ColorShape = color;
             base.Init(VertexFloatArray, IndexFloatArray, ColorShape);
