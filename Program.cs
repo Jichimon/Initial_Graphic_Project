@@ -14,7 +14,7 @@ namespace Initial_project
             var nativeWindowSettings = new NativeWindowSettings()
             {
                 Size = new Vector2i(800, 600),
-                Title = "LearnOpenTK - Creating a Window",
+                Title = "LearnOpenTK - Graphics Programming Presentation",
                 // Necesario para correr en MacOS
                 Flags = ContextFlags.ForwardCompatible,
             };

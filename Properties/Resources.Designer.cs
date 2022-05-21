@@ -73,6 +73,16 @@ namespace Initial_project.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Byte[].
         /// </summary>
+        internal static byte[] House {
+            get {
+                object obj = ResourceManager.GetObject("House", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
         internal static byte[] VertexShader {
             get {
                 object obj = ResourceManager.GetObject("VertexShader", resourceCulture);

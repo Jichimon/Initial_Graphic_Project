@@ -1,6 +1,6 @@
 ﻿using System;
 using Initial_project.Core;
-using Initial_project.Core.Entities;
+using Initial_project.Engine.Entities;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
@@ -13,9 +13,8 @@ namespace Initial_project.Engine
     {
 
         //atributos
-        House Shape;
-        House Shape2;
-        Scene Scene1;
+        MainScene Scene1;
+        Control Control;
 
 
         //constructor
@@ -27,15 +26,8 @@ namespace Initial_project.Engine
 
         private void Init()
         {
-            Vector3 initialPosition1 = new Vector3( 0.9f, 0.0f, -0.3f);
-            Vector3 initialPosition2 = new Vector3(-0.9f, 0.0f, -0.3f);
-
-
-            Shape = new House(initialPosition1);
-            Shape2 = new House(initialPosition2);
-            Scene1 = new();
-            Scene1.AddObject("casa1", Shape);
-            Scene1.AddObject("casa2", Shape2);
+            Scene1 = new MainScene();
+            Control = new Control(Scene1);
         }
 
 
@@ -55,7 +47,7 @@ namespace Initial_project.Engine
             Matrix4 view = Matrix4.LookAt(cameraPosition, target, up);
 
             Scene1.SetViewProjectionMatrix(view * projection);
-
+            Control.DisplayObjectsList();
 
             base.OnLoad();
         }
@@ -70,6 +62,20 @@ namespace Initial_project.Engine
 
             Context.SwapBuffers();
             base.OnRenderFrame(e);
+        }
+
+
+        protected override void OnKeyDown(KeyboardKeyEventArgs e)
+        {
+            KeyboardState inputKey = KeyboardState.GetSnapshot();
+
+            if (IsFocused)
+            {
+
+                Control.OnInputKey(inputKey);
+
+            }
+            base.OnKeyDown(e);
         }
 
 

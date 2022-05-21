@@ -16,8 +16,8 @@ namespace Initial_project.Engine.Shaders
 
         public ShaderEngine()
         {
-            string vertexPath = "Resources/Shaders/VertexShader.glsl";
-            string fragmentPath = "Resources/Shaders/FragmentShader.glsl";
+            string vertexPath = "../../../Resources/Shaders/VertexShader.glsl";
+            string fragmentPath = "../../../Resources/Shaders/FragmentShader.glsl";
 
             Init(vertexPath, fragmentPath);
         }
